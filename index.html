@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curadoria de vídeos · Ana Júlia Frasson Advocacia · Pongui</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-elev: #141414;
+    --bg-card: #1a1a1a;
+    --ink: #f4f1ea;
+    --ink-mute: #a8a39a;
+    --ink-dim: #6b6760;
+    --rule: #2a2a2a;
+    --orange: #ff6b1a;
+    --orange-soft: #ffa66d;
+    --green: #4ade80;
+    --green-soft: #86efac;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: clamp(15px, 1.5vw, 17px);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  img, video { max-width: 100%; display: block; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px); }
+  .wrap-tight { max-width: 880px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px); }
+
+  .nav-strip {
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 0;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .nav-strip .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .brand { color: var(--orange); font-weight: 500; }
+
+  .hero { padding: clamp(64px, 10vw, 120px) 0 clamp(56px, 9vw, 100px); border-bottom: 1px solid var(--rule); }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: clamp(20px, 3vw, 32px);
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(34px, 6.2vw, 72px);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin-bottom: clamp(24px, 3.5vw, 36px);
+  }
+  .hero h1 em { font-style: italic; color: var(--orange-soft); font-weight: 300; }
+  .hero .lede {
+    font-size: clamp(16px, 1.8vw, 19px);
+    color: var(--ink-mute);
+    max-width: 720px;
+    line-height: 1.55;
+  }
+  .meta-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: clamp(20px, 3vw, 32px);
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-top: clamp(28px, 4vw, 36px);
+    border-top: 1px solid var(--rule);
+  }
+  .meta-item .label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+  .meta-item .value {
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.8vw, 19px);
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .section { padding: clamp(56px, 8vw, 100px) 0 clamp(48px, 7vw, 80px); border-bottom: 1px solid var(--rule); }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 24px;
+  }
+  .section-eyebrow .num { color: var(--orange); font-weight: 500; }
+  .section h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(28px, 4.6vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: clamp(20px, 3vw, 28px);
+    max-width: 900px;
+  }
+  .section h2 em { font-style: italic; color: var(--orange-soft); font-weight: 300; }
+  .section .intro { color: var(--ink-mute); font-size: clamp(15px, 1.7vw, 18px); max-width: 720px; line-height: 1.6; }
+
+  .route-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 18px;
+    background: rgba(255, 107, 26, 0.1);
+    border: 1px solid rgba(255, 107, 26, 0.3);
+    border-radius: 999px;
+    margin-bottom: clamp(24px, 3.5vw, 36px);
+    font-size: clamp(11px, 1.2vw, 13px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 500;
+  }
+  .route-banner .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 12px var(--orange);
+    flex-shrink: 0;
+  }
+
+  .criativos-grid { display: grid; gap: clamp(36px, 5vw, 60px); margin-top: clamp(40px, 6vw, 64px); }
+  .criativo {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .criativo-header {
+    padding: clamp(22px, 3vw, 32px) clamp(22px, 3vw, 36px) clamp(18px, 2.5vw, 24px);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .criativo-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .criativo-num {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.6vw, 28px);
+    font-weight: 500;
+    color: var(--orange);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .criativo-num::before { content: "Nº "; font-size: 0.6em; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+  .criativo-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    line-height: 1.4;
+  }
+  .criativo-title {
+    font-family: var(--serif);
+    font-size: clamp(19px, 2.4vw, 26px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .criativo-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    border-radius: 999px;
+    color: var(--green-soft);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .criativo-body {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) 1fr;
+    gap: clamp(24px, 3.5vw, 36px);
+    padding: clamp(22px, 3vw, 36px);
+  }
+  @media (max-width: 820px) {
+    .criativo-body { grid-template-columns: 1fr; }
+  }
+
+  .video-wrap {
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+    position: relative;
+    border: 1px solid var(--rule);
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    .video-wrap { max-width: 320px; }
+  }
+  .video-wrap video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; position: relative; z-index: 2; }
+  .video-wrap.loaded .video-fallback { display: none; }
+  .video-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+    color: var(--ink-mute);
+    font-size: 13px;
+    line-height: 1.5;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .video-fallback span { color: var(--orange); margin-bottom: 8px; font-size: 22px; }
+
+  .criativo-details h4 {
+    font-family: var(--serif);
+    font-size: clamp(13px, 1.4vw, 15px);
+    font-weight: 500;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    margin-top: clamp(18px, 2.5vw, 22px);
+  }
+  .criativo-details h4:first-child { margin-top: 0; }
+  .criativo-details p { color: var(--ink-mute); font-size: clamp(14px, 1.5vw, 15px); line-height: 1.65; margin-bottom: 8px; }
+  .criativo-details strong { color: var(--ink); font-weight: 500; }
+
+  .source-link {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--green);
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.4);
+    padding-bottom: 1px;
+  }
+  .source-link:hover { color: var(--green-soft); border-bottom-color: var(--green-soft); }
+
+  .cta-box {
+    margin-top: clamp(20px, 3vw, 24px);
+    padding: clamp(14px, 2vw, 18px) clamp(16px, 2.5vw, 22px);
+    background: rgba(255, 107, 26, 0.06);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 4px 4px 0;
+  }
+  .cta-box .cta-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .cta-box .cta-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(15px, 1.7vw, 17px);
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .format-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 4px;
+  }
+  .format-pill {
+    padding: 4px 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+
+  .cta-summary {
+    margin-top: clamp(40px, 6vw, 60px);
+    padding: clamp(24px, 3.5vw, 36px);
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+  }
+  .cta-summary h4 {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .cta-list { list-style: none; padding: 0; }
+  .cta-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-mute);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .cta-list li:last-child { border-bottom: none; }
+  .cta-list .opt-num {
+    color: var(--orange);
+    font-family: var(--serif);
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 500;
+    min-width: 24px;
+    line-height: 1.4;
+  }
+  .cta-list .opt-text {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink);
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.45;
+  }
+
+  .closing { padding: clamp(64px, 9vw, 100px) 0 clamp(80px, 12vw, 140px); }
+  .closing h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(28px, 4.8vw, 56px);
+    line-height: 1.1;
+    margin-bottom: clamp(20px, 3vw, 28px);
+    letter-spacing: -0.02em;
+  }
+  .closing h2 em { font-style: italic; color: var(--orange-soft); }
+  .closing p { color: var(--ink-mute); font-size: clamp(15px, 1.7vw, 18px); line-height: 1.65; margin-bottom: 16px; max-width: 720px; }
+
+  .signature {
+    margin-top: clamp(40px, 6vw, 56px);
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--ink-dim);
+    letter-spacing: 0.06em;
+  }
+  .signature strong { color: var(--orange); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="nav-strip">
+  <div class="wrap">
+    <span class="brand">Pongui · Marketing Jurídico</span>
+    <span>Curadoria de Vídeos · Outubro 2026</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap-tight">
+    <div class="eyebrow">Material de gravação · Ana Júlia Frasson Advocacia</div>
+    <h1>Nove anúncios de inventário que <em>estão no ar há mais de seis meses</em></h1>
+    <p class="lede">Separamos anúncios de outros advogados que falam de herança e inventário e continuam ativos na Meta há pelo menos meio ano. Assista antes de gravar: eles mostram como abrir o vídeo, o que dizer no meio e como fechar, tudo em menos de um minuto.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="label">Cliente</div>
+        <div class="value">Ana Júlia Frasson Advocacia</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Objetivo</div>
+        <div class="value">Gravação em lote</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Volume</div>
+        <div class="value">9 referências</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Critério</div>
+        <div class="value">Ativos há 6+ meses</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap-tight">
+    <div class="section-eyebrow"><span class="num">01</span> · Como ler este documento</div>
+    <h2>Assista antes de escrever <em>qualquer roteiro</em></h2>
+    <p class="intro">Os nove vídeos abaixo são anúncios reais e todos continuam rodando hoje, com pelo menos seis meses no ar. Nenhum advogado mantém por meio ano um anúncio que não traz cliente. Se ele segue ativo, a Meta continua entregando e alguém continua chamando no WhatsApp. Por isso essas referências são mais seguras do que o vídeo que simplesmente parece bom.</p>
+    <p class="intro" style="margin-top: 16px;">A ideia não é copiar fala por fala. Em cada card você encontra por que aquele vídeo foi escolhido, a estrutura que ele segue e uma sugestão de como dizer o mesmo com as suas palavras e os seus casos. Grave cada um com menos de um minuto, pelo celular, falando para a câmera como você falaria com um cliente. Legenda, cortes e edição ficam com a gente.</p>
+
+    <div class="cta-summary">
+      <h4>As quatro frases de fechamento</h4>
+      <p style="color: var(--ink-mute); margin-bottom: 18px;">Toda gravação encerra com uma dessas quatro frases — é o que leva a pessoa a chamar você no WhatsApp. A recomendação específica para cada criativo aparece em destaque no card.</p>
+      <ul class="cta-list">
+        <li><span class="opt-num">01</span><span class="opt-text">"Para mais informações sobre este conteúdo, clique em saiba mais."</span></li>
+        <li><span class="opt-num">02</span><span class="opt-text">"Dúvidas sobre este tema? Clique em saiba mais."</span></li>
+        <li><span class="opt-num">03</span><span class="opt-text">"Se você está passando por isso, fale com um advogado especialista."</span></li>
+        <li><span class="opt-num">04</span><span class="opt-text">"Para entender os seus direitos, fale com um advogado especialista."</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ROTA A
+     ============================================ -->
+<section class="section">
+  <div class="wrap-tight">
+    <div class="section-eyebrow"><span class="num">02</span> · Rota A</div>
+    <div class="route-banner"><span class="dot"></span>Rota A · Alguém da família faleceu</div>
+    <h2>A pessoa acabou de perder alguém <em>e não sabe por onde começar</em></h2>
+    <p class="intro">É o público mais numeroso do inventário e também o mais perdido: ainda está de luto, já ouviu três opiniões diferentes de parentes e não sabe se precisa de advogado agora ou depois. Como combinamos na reunião, quem filtra o público é o próprio vídeo. Quem perdeu o pai, a mãe ou o marido precisa se reconhecer nos primeiros segundos. Os três vídeos desta rota fazem isso por caminhos diferentes: um pela pergunta do cliente, um por um atendimento contado em primeira pessoa e um pela história de uma viúva.</p>
+
+    <div class="criativos-grid">
+
+      <!-- CRIATIVO 01 -->
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">01</span>
+            <span class="criativo-tag">Pergunta do cliente</span>
+          </div>
+          <div class="criativo-label">Dra. Marilucia Rocha · no ar desde 06/04/2026</div>
+          <h3 class="criativo-title">"Dra, meu marido faleceu. Tenho que sair do imóvel para dividir a herança?"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-01.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>O vídeo abre com uma pergunta escrita do jeito que a viúva mandaria no WhatsApp, e ela aparece em letras grandes na tela antes de a advogada dizer qualquer coisa. Quem vive essa situação lê e para, porque é exatamente o medo que tem: perder a casa onde mora. A resposta vem em seguida, curta e sem juridiquês, e o vídeo termina com a pessoa querendo saber como aquilo se aplica ao caso dela.</p>
+
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> a pergunta real, na voz do cliente, em texto na tela. <strong>2. Resposta direta:</strong> sim ou não, em uma frase. <strong>3. Explicação:</strong> o porquê, em linguagem de conversa. <strong>4. Ressalva:</strong> cada família tem detalhes que mudam a resposta. <strong>5. Fechamento</strong> com a frase recomendada.</p>
+
+            <h4>Como adaptar para você</h4>
+            <p>Você recebe perguntas assim toda semana, então o roteiro já está na sua cabeça. Escolha as três mais frequentes e grave uma por vídeo. Por exemplo: <em>"Doutora, meu pai faleceu e meu irmão está morando sozinho na casa. Ele pode ficar com ela?"</em> Responda como responderia na consulta, sem termo técnico. É o "direito sem juridiquês" que você colocou como diferencial, e é ele que faz a pessoa sentir que pode falar com você. A pergunta em texto grande no topo do vídeo a gente coloca na edição.</p>
+
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Pergunta em texto na tela</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Gravado no celular</span></div>
+
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=4447119958866741" target="_blank" rel="noopener">Ver o anúncio original →</a>
+
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Se você está passando por isso, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CRIATIVO 02 -->
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">02</span>
+            <span class="criativo-tag">Caso de atendimento</span>
+          </div>
+          <div class="criativo-label">Márcio César Schio · no ar desde 20/02/2026</div>
+          <h3 class="criativo-title">"Doutor, já fiz testamento. Minha família não vai ter problema."</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-02.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>É o formato que o Daniel recomendou na reunião: contar um atendimento sem identificar ninguém. O advogado começa com "essa semana um cliente me procurou" e repete a frase que o cliente disse com toda a certeza do mundo. Quem assiste pensa igual ao cliente, e o vídeo desmonta essa crença mostrando o que acontece de verdade depois: inventário obrigatório, imposto, custo e desgaste na família. A pessoa sai percebendo que sabia menos do que imaginava.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> "Atendi alguém que tinha certeza de que…". <strong>2. A frase do cliente</strong>, como ele falou. <strong>3. A virada:</strong> o ponto em que essa certeza não se sustenta. <strong>4. O que acontece na prática</strong>, em dois ou três pontos concretos. <strong>5. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Você mesma trouxe a crença perfeita na reunião: todo mundo acha que o inventário vai para o cartório com facilidade, e na hora de resolver não é bem assim. Grave nessa linha: <em>"Uma cliente chegou aqui certa de que ia resolver o inventário do pai no cartório em um mês. Só que o imóvel tinha uma restrição na matrícula, e isso travou tudo…"</em> Sem nome, sem cidade e sem valores que identifiquem a família. O peso da história vem da sua experiência como especialista em Sucessões que já destravou casos assim. Quem só repete regra não consegue contar desse jeito.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Gravado ao ar livre</span><span class="format-pill">História de atendimento</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1406787460934328" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Dúvidas sobre este tema? Clique em saiba mais."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CRIATIVO 03 -->
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">03</span>
+            <span class="criativo-tag">História com personagem</span>
+          </div>
+          <div class="criativo-label">Holding com Bruno Couto Rocha · no ar desde 01/04/2025</div>
+          <h3 class="criativo-title">"Joana perdeu mais do que imaginava quando o marido se foi"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-03.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>Está no ar há mais de dezoito meses, e anúncio que dura tanto tempo é anúncio que traz resultado. Ele conta a história de uma viúva com nome próprio e termina com uma pergunta que vira o jogo para quem assiste: o erro dela pode ser o seu também? Dar nome à personagem faz a história parecer real e próxima, e a pergunta final obriga a pessoa a pensar na própria família. É um vídeo mais produzido e mais longo do que os outros, então use como referência de narrativa, e não de formato.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> o nome da pessoa e a perda ("A Joana perdeu mais do que imaginava quando…"). <strong>2. O que aconteceu depois</strong>, em sequência. <strong>3. O erro</strong> que causou o prejuízo. <strong>4. A pergunta</strong> para quem assiste. <strong>5. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Você pode contar uma história assim em menos de um minuto, falando para a câmera, com um nome inventado: <em>"A Maria perdeu o marido e achou que a casa e a conta do banco iam passar para ela automaticamente. Três meses depois, a conta estava bloqueada, os filhos do primeiro casamento dele queriam a parte deles, e ela não sabia nem por onde começar."</em> Não use nenhum detalhe que identifique uma cliente real. Feche com a pergunta: <em>"Isso está acontecendo na sua família?"</em> A sua vivência em Família e Sucessões é o que deixa a história crível, porque você sabe quais detalhes aparecem de verdade nesses casos.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Narrativa com personagem</span><span class="format-pill">Pergunta no final</span><span class="format-pill">Mais produzido</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1230388822019242" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Se você está passando por isso, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ROTA B
+     ============================================ -->
+<section class="section">
+  <div class="wrap-tight">
+    <div class="section-eyebrow"><span class="num">03</span> · Rota B</div>
+    <div class="route-banner"><span class="dot"></span>Rota B · Herança parada e família dividida</div>
+    <h2>Enquanto o inventário não sai, <em>o patrimônio para e a família briga</em></h2>
+    <p class="intro">Aqui o herdeiro já sabe que precisa fazer o inventário, mas ainda não começou, ou começou e travou. O imóvel fica fechado, os irmãos não concordam sobre vender ou alugar, e cada mês parado aumenta a conta e a tensão. É a dor que você colocou no formulário: o medo de piorar o conflito na família. Os três vídeos tratam desse mesmo momento por ângulos diferentes: o risco de deixar a herança parada, o que dá para fazer com os bens durante o inventário e o desgaste entre os herdeiros.</p>
+
+    <div class="criativos-grid">
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">04</span>
+            <span class="criativo-tag">Consequência grave</span>
+          </div>
+          <div class="criativo-label">Cristiano Nascimento Advocacia Imobiliária · no ar desde 27/10/2025</div>
+          <h3 class="criativo-title">"Sem inventário, o imóvel herdado pode até ir a leilão"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-04.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>No ar desde outubro de 2025. A abertura no formato "você sabia" enfileira consequências da mais leve para a mais grave: imóvel irregular, venda travada, briga na família e, no fim, o leilão. Essa escada prende porque cada degrau assusta mais do que o anterior. O cenário, um escritório com estante ao fundo, passa seriedade sem exigir produção.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> "Você sabia que, sem inventário…". <strong>2. Escada de consequências</strong>, da mais leve para a mais grave. <strong>3. O que o inventário resolve</strong>, em uma frase. <strong>4. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Você descreveu essa escada na reunião: o inventário que trava atrasa o imposto, e o imposto atrasado vem com multa. Grave a sequência do jeito que acontece com os seus clientes: <em>"Você sabia que, enquanto o inventário não é feito, a casa que seus pais deixaram não pode ser vendida, os irmãos começam a discordar sobre o que fazer com ela e o imposto da herança continua correndo, com multa?"</em> A credibilidade vem de você estar contando o que viu acontecer nos inventários que conduziu, e não repetindo uma regra que leu.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Escritório ao fundo</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Lista de riscos</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=833501669065148" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Para mais informações sobre este conteúdo, clique em saiba mais."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">05</span>
+            <span class="criativo-tag">Saída que poucos conhecem</span>
+          </div>
+          <div class="criativo-label">Martins &amp; Thomé · no ar desde 13/09/2025</div>
+          <h3 class="criativo-title">"Os bens herdados podem ser alugados ou vendidos antes de o inventário terminar"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-05.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>Quebra uma crença que quase todo herdeiro tem: a de que nada pode ser feito até o inventário acabar. Ao mostrar que, com autorização do juiz, dá para alugar ou vender um bem no meio do processo, o vídeo tira o herdeiro da sensação de mãos atadas e aponta um ganho concreto. Advogado de terno, falando para a câmera, e o anúncio leva direto para o WhatsApp.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> "Você sabia que…". <strong>2. A possibilidade</strong> que quase ninguém conhece. <strong>3. O que ela evita:</strong> imóvel se estragando, dívida acumulando. <strong>4. A condição</strong>, autorização judicial, sem entrar em detalhe. <strong>5. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Esse vídeo conversa direto com a família que está discutindo o que fazer com o imóvel parado: <em>"Seu pai faleceu, o inventário ainda não terminou e a casa está fechada, acumulando IPTU e se estragando? Muita gente não sabe, mas dá para pedir autorização ao juiz para alugar ou até vender o imóvel antes de o inventário acabar."</em> Isso ajuda a esfriar a briga entre irmãos, porque transforma um problema parado em dinheiro para todos. Combina com o que você colocou como objetivo do seu trabalho no formulário: resolver da forma mais harmoniosa possível e proteger a segurança financeira da família.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Visual formal</span><span class="format-pill">Abertura "você sabia"</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1156797026310493" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Para entender os seus direitos, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">06</span>
+            <span class="criativo-tag">Conflito na família</span>
+          </div>
+          <div class="criativo-label">Dra. Andrea Pelatti · no ar desde 31/03/2026</div>
+          <h3 class="criativo-title">"O inventário judicial não divide só os bens. Divide a família."</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-06.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>A abertura é uma frase que qualquer pessoa que já passou por um inventário reconhece na hora. A advogada descreve o processo como um ambiente frio e demorado, em que cada herdeiro defende o seu lado, e é exatamente esse desgaste que o seu público mais teme. É da mesma advogada do vídeo 08, mas com outro ângulo: lá o assunto é dinheiro, aqui é a relação entre os herdeiros. Ela termina oferecendo holding; para você, o fechamento muda para a condução do inventário.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> a frase de impacto sobre a família. <strong>2. Por que o processo alimenta o conflito.</strong> <strong>3. O custo emocional</strong>, com exemplos concretos. <strong>4. Um caminho diferente.</strong> <strong>5. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p><em>"Inventário não precisa virar guerra entre irmãos. Quando cada um contrata um advogado e ninguém conversa, o processo leva anos e todo mundo perde dinheiro. Quando alguém conduz o acordo desde o começo, muitas vezes dá para resolver no cartório, em poucos meses."</em> Aqui entram dois diferenciais seus de uma vez: o atendimento humanizado, para lidar com uma família em luto, e a experiência de quem sabe quando o inventário pode ir para o cartório e quando não pode.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Frase de impacto</span><span class="format-pill">Tom acolhedor</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1624471105344482" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Se você está passando por isso, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ROTA C
+     ============================================ -->
+<section class="section">
+  <div class="wrap-tight">
+    <div class="section-eyebrow"><span class="num">04</span> · Rota C</div>
+    <div class="route-banner"><span class="dot"></span>Rota C · Imposto, prazo e dinheiro</div>
+    <h2>O que a família perde <em>enquanto o inventário espera</em></h2>
+    <p class="intro">Aqui o assunto é dinheiro: o custo do inventário, a multa por atraso, a venda feita às pressas e até valores que a família nem sabe que tem para receber. Na reunião você comentou que é no atraso do imposto que a família começa a perder dinheiro, e esses três vídeos exploram exatamente isso. Dois deles são de advogados que trabalham com planejamento sucessório e terminam oferecendo esse serviço. Para você, aproveite a abertura e o argumento; o fechamento muda para quem já está com o inventário nas mãos.</p>
+
+    <div class="criativos-grid">
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">07</span>
+            <span class="criativo-tag">Custo do inventário</span>
+          </div>
+          <div class="criativo-label">Nairio Augusto Holding · no ar desde 03/03/2025</div>
+          <h3 class="criativo-title">"O inventário não é só burocracia. É um dreno no patrimônio da família."</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-07.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>É o anúncio mais antigo da curadoria, no ar desde março de 2025. Gravado em formato selfie, ao ar livre, sem produção nenhuma. O argumento é direto: o inventário consome parte do patrimônio, e muita família só percebe quando as contas começam a chegar. Termina com uma pergunta que coloca a decisão na mão de quem assiste. O anunciante vende holding, mas o argumento funciona inteiro para quem já tem um inventário para fazer.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> uma afirmação forte ("o inventário não é só burocracia"). <strong>2. Onde o dinheiro vai embora.</strong> <strong>3. O momento em que a família percebe.</strong> <strong>4. A pergunta final.</strong> <strong>5. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Vire o argumento para quem já perdeu alguém: <em>"Quem nunca fez um inventário acha que é só papelada. Mas tem imposto, tem custo de cartório ou de processo, e quanto mais a família demora para começar, mais caro fica. Já vi família descobrir quanto ia gastar só depois que o prazo do imposto tinha passado."</em> O "já vi" é a sua experiência falando, e é o que separa o seu vídeo de um conteúdo genérico. Pode gravar como ele: celular na mão, ao ar livre, olhando para a câmera.</p>
+            <div class="format-pills"><span class="format-pill">Selfie</span><span class="format-pill">Ao ar livre</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Sem edição</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1814370412661419" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Dúvidas sobre este tema? Clique em saiba mais."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">08</span>
+            <span class="criativo-tag">Dor no bolso</span>
+          </div>
+          <div class="criativo-label">Dra. Andrea Pelatti · no ar desde 10/03/2026</div>
+          <h3 class="criativo-title">"O preço da pressa no inventário"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-08.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>A abertura faz uma pergunta que mexe com quem trabalhou a vida inteira, quanto vale o esforço de décadas, e depois numera três jeitos de perder dinheiro: o prazo do imposto, a multa e a venda às pressas. Lista curta e numerada é fácil de acompanhar e fácil de lembrar. A ideia que fica é simples: quem herda uma conta de inventário para pagar acaba vendendo com pressa, e quem vende com pressa vende barato.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> uma pergunta sobre o valor do patrimônio. <strong>2. Os três custos</strong>, numerados. <strong>3. A frase que resume o problema.</strong> <strong>4. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>O argumento serve inteiro para quem já está com o inventário nas mãos: <em>"Muita família vende o imóvel da herança por bem menos do que ele vale. Sabe por quê? O imposto do inventário tem prazo, a multa cresce todo mês e ninguém tem o dinheiro guardado para pagar."</em> Feche dizendo que existe forma de organizar esse pagamento sem vender correndo, e deixe o como para a conversa. É o tipo de orientação que mostra a sua experiência técnica sem precisar de nenhum termo jurídico.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Lista numerada</span><span class="format-pill">Tom de conversa</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=2111989862960648" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Para entender os seus direitos, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="criativo">
+        <header class="criativo-header">
+          <div class="criativo-top">
+            <span class="criativo-num">09</span>
+            <span class="criativo-tag">Dinheiro esquecido</span>
+          </div>
+          <div class="criativo-label">Melo e Montenegro Advogados Associados · no ar desde 08/11/2025</div>
+          <h3 class="criativo-title">"Herdeiros podem ter valores a receber e não sabem"</h3>
+        </header>
+        <div class="criativo-body">
+          <div class="video-wrap">
+            <div class="video-fallback"><span>▶</span>Carregando vídeo…</div>
+            <video controls preload="metadata" src="criativos/anajulia-09.mp4"></video>
+          </div>
+          <div class="criativo-details">
+            <h4>Por que esse foi escolhido</h4>
+            <p>Este inverte a lógica da rota: em vez de mostrar o que a família perde, mostra o que ela pode receber. O anúncio fala de herdeiros de servidores públicos com valores de ações e precatórios, um recorte bem específico, mas a estrutura funciona para qualquer herança. A própria Meta mostra que ele já foi exibido entre 25 e 30 mil vezes.</p>
+            <h4>Estrutura do roteiro a copiar</h4>
+            <p><strong>1. Abertura:</strong> "Você sabia que herdeiros podem ter direito a…". <strong>2. Exemplos concretos</strong> do que pode estar parado. <strong>3. Por que a família não fica sabendo.</strong> <strong>4. Fechamento.</strong></p>
+            <h4>Como adaptar para você</h4>
+            <p>Quase todo falecimento deixa valores espalhados em nome de quem faleceu: saldo de FGTS e PIS, conta no banco, restituição do imposto de renda. Parte disso pode ser levantada por alvará, e a família simplesmente não vai atrás. <em>"Quando alguém da família falece, quase sempre fica dinheiro parado no nome dele. FGTS, PIS, conta no banco, restituição do imposto de renda. E a maioria dos herdeiros nunca vai buscar."</em> É um tema de entrada: a pessoa chama por causa de um valor pequeno e, na conversa de 15 minutos, você descobre o imóvel que precisa de inventário.</p>
+            <div class="format-pills"><span class="format-pill">Vertical 9:16</span><span class="format-pill">Fala para a câmera</span><span class="format-pill">Exemplos concretos</span><span class="format-pill">Abertura "você sabia"</span></div>
+            <a class="source-link" href="https://www.facebook.com/ads/library/?id=1240820641398777" target="_blank" rel="noopener">Ver o anúncio original →</a>
+            <div class="cta-box">
+              <div class="cta-label">Frase final recomendada</div>
+              <div class="cta-text">"Para entender os seus direitos, fale com um advogado especialista."</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap-tight">
+    <div class="section-eyebrow"><span class="num">05</span> · Próximo passo</div>
+    <h2>Agora é <em>gravar em lote</em></h2>
+    <p>Combinamos a entrega até quinta-feira, dia 15. A meta da primeira leva é ter nove vídeos, mas eles não precisam ser nove assuntos diferentes. Escolha os formatos que soaram mais naturais para você, grave pelo menos um de cada rota e depois regrave só o começo do mesmo vídeo de duas ou três formas. Cada abertura nova já conta como um anúncio novo para o teste.</p>
+    <p>Mande tudo bruto no grupo, do jeito que saiu do celular. Não precisa estar bonito nem perfeito, porque a legenda, os cortes e a edição são com a gente. Os vídeos com o seu storymaker ficam para o feed, com os casos reais que conversamos. Se algum deles tiver menos de um minuto e falar direto da dor da pessoa, pode vir para os anúncios também.</p>
+    <div class="signature">
+      <strong>Pongui · Marketing Jurídico</strong> · Curadoria Ana Júlia Frasson Advocacia · Outubro 2026
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.video-wrap').forEach(wrap => {
+    const v = wrap.querySelector('video');
+    if (!v) return;
+    const markLoaded = () => wrap.classList.add('loaded');
+    v.addEventListener('loadedmetadata', markLoaded);
+    v.addEventListener('loadeddata', markLoaded);
+    if (v.readyState >= 1) markLoaded();
+  });
+</script>
+
+</body>
+</html>
